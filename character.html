@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Character Information</title>
+  <script src="characterData.js"></script> <!-- Include your character data -->
+  <style>
+    #profile {
+      text-align: center;
+    }
+    #desc {
+      max-width: 60vw;
+      margin: 0 auto;
+    }
+    p {
+      font-size: 17px;
+      font-family: sans-serif;
+    }
+    #profile img {
+      width: 60vw;
+      height: 60vh;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+      background-color: green;
+      border-radius: 30px;
+      padding: 0.8vw;
+      margin-top: 10vw;
+      margin-left: 42vw;
+    }
+  </style>
+</head>
+<body>
+  <div id="character-info"></div>
+
+  <script>
+    // Function to get query parameter value
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    // Get the character name from the URL
+    const characterKey = getQueryParam('name');
+
+    // Get the character data from the characters object
+    const character = characters[characterKey];
+
+    if (character) {
+      // Display the character information
+      document.getElementById('character-info').innerHTML = `
+        <div id="profile">
+          <h1>${character.name}</h1>
+          <img src="${character.image}" alt="${character.name}">
+        </div>
+        <div id="desc">
+          <p>${character.description}</p>
+          <h1>Actor (${character.actor.name}):</h1>
+          <p>${character.actor.description}</p>
+          <h1>Fun Fact:</h1>
+          <p>${character.fact}</p>
+        </div>
+        <a href="index.html">Back to Home</a>
+      `;
+    } else {
+      // If character not found, display an error message
+      document.getElementById('character-info').innerHTML = `
+        <p>Character not found.</p>
+        <a href="index.html">Back to Home</a>
+      `;
+    }
+  </script>
+</body>
+</html>
